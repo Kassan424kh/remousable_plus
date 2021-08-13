@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -103,7 +104,7 @@ class DraggebleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        child: appBar, onPanStart: onPanStart, onPanUpdate: onPanUpdate);
+        child: MouseRegion(child: appBar, onHover: onHover, onExit: offHover,), onPanStart: onPanStart, onPanUpdate: onPanUpdate);
   }
 
   @override
@@ -116,5 +117,13 @@ class DraggebleAppBar extends StatelessWidget implements PreferredSizeWidget {
   void onPanStart(DragStartDetails details) async {
     await platform_channel_draggable.invokeMethod('onPanStart',
         {"dx": details.globalPosition.dx, "dy": details.globalPosition.dy});
+  }
+
+  void onHover(PointerEvent details) async {
+    await platform_channel_draggable.invokeMethod('onHover');
+  }
+
+  void offHover(PointerEvent details) async {
+    await platform_channel_draggable.invokeMethod('offHover');
   }
 }

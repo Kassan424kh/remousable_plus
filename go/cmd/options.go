@@ -30,6 +30,8 @@ func (p *AppBarDraggable) InitPlugin(messenger plugin.BinaryMessenger) error {
 	channel := plugin.NewMethodChannel(messenger, "samples.go-flutter.dev/draggable", plugin.StandardMethodCodec{})
 	channel.HandleFunc("onPanStart", p.onPanStart)
 	channel.HandleFuncSync("onPanUpdate", p.onPanUpdate) // MUST RUN ON THE MAIN THREAD (use of HandleFuncSync)
+	channel.HandleFuncSync("onHover", p.onHover)         // MUST RUN ON THE MAIN THREAD (use of HandleFuncSync)
+	channel.HandleFuncSync("offHover", p.offHover)       // MUST RUN ON THE MAIN THREAD (use of HandleFuncSync)
 	channel.HandleFunc("onClose", p.onClose)
 	channel.HandleFunc("onMinimize", p.onMinimize)
 	return nil
@@ -61,6 +63,18 @@ func (p *AppBarDraggable) onPanUpdate(arguments interface{}) (reply interface{},
 	x, y := p.window.GetPos()           // This function must only be called from the main thread.
 	p.window.SetPos(x+deltaX, y+deltaY) // This function must only be called from the main thread.
 
+	return nil, nil
+}
+
+func (p *AppBarDraggable) onHover(arguments interface{}) (reply interface{}, err error) {
+	// This function may be called from any thread. Access is not synchronized.
+	p.window.SetCursor(glfw.CreateStandardCursor(glfw.HandCursor))
+	return nil, nil
+}
+
+func (p *AppBarDraggable) offHover(arguments interface{}) (reply interface{}, err error) {
+	// This function may be called from any thread. Access is not synchronized.
+	p.window.SetCursor(glfw.CreateStandardCursor(glfw.ArrowCursor))
 	return nil, nil
 }
 
