@@ -9,6 +9,8 @@
 .history
 .svn/
 
+rh.ini
+
 # IntelliJ related
 *.iml
 *.ipr
