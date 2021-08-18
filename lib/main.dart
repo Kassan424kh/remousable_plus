@@ -39,91 +39,113 @@ class _MyHomePageState extends State<MyHomePage> {
       decoration:
           BoxDecoration(border: Border.all(width: 1, color: Colors.blueAccent)),
       child: Scaffold(
-        appBar: DraggebleAppBar(title: "reMousable"),
-        backgroundColor: Colors.white,
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: [
-                Wrap(
-                  children: [
-                    Text(
-                      "IP-ADDRESS",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
+          appBar: DraggebleAppBar(title: "reMousable"),
+          backgroundColor: Colors.white,
+          body: Container(
+            padding: EdgeInsets.all(20),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: [
+                  Wrap(
+                    children: [
+                      Text(
+                        "IP-ADDRESS",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    CupertinoTextField(
-                      placeholder: "192.168.0.110",
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Wrap(
-                  children: [
-                    Text(
-                      "PASSWORD",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
+                      SizedBox(
+                        height: 25,
                       ),
+                      CupertinoTextField(
+                        placeholder: "192.168.0.110",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Wrap(
+                    children: [
+                      Text(
+                        "PASSWORD",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      CupertinoTextField(
+                        obscureText: true,
+                        placeholder: "•••••••••••",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "In your reMarkable tablet got to:\nSettings > About > Copyrights and licenses > General information (scroll down)",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54,
                     ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    CupertinoTextField(
-                      obscureText: true,
-                      placeholder: "•••••••••••",
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _hoveredSaveButton = true;
-            });
-          },
-          tooltip: 'Update',
-          elevation: 0,
-          focusElevation: 0,
-          hoverElevation: 0,
-          disabledElevation: 0,
-          highlightElevation: 0,
-          splashColor: Colors.transparent,
-          backgroundColor: Colors.blue.withAlpha(50),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 350),
-            curve: Curves.easeInOutExpo,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withAlpha(40),
-                  blurRadius: 10,
-                  spreadRadius: 15,
-                  offset: Offset(0, 15),
-                )
-              ],
+          floatingActionButton: MouseRegion(
+            child: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _hoveredSaveButton = true;
+                });
+              },
+              tooltip: 'Update',
+              elevation: 0,
+              focusElevation: 0,
+              hoverElevation: 0,
+              disabledElevation: 0,
+              highlightElevation: 0,
+              splashColor: Colors.transparent,
+              backgroundColor: Colors.blue.withAlpha(50),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Colors.black.withAlpha(_hoveredSaveButton ? 30 : 25),
+                      blurRadius: _hoveredSaveButton ? 9 : 10,
+                      spreadRadius: 15,
+                      offset: Offset(0, _hoveredSaveButton ? 10 : 20),
+                    )
+                  ],
+                ),
+                child: const Icon(
+                  Icons.save,
+                  color: Colors.blue,
+                ),
+              ),
             ),
-            child: const Icon(
-              Icons.save,
-              color: Colors.blue,
-            ),
-          ),
-        ),
-      ),
+            onHover: (x) {
+              setState(() {
+                _hoveredSaveButton = true;
+              });
+            },
+            onExit: (x) {
+              setState(() {
+                _hoveredSaveButton = false;
+              });
+            },
+          )),
     );
   }
 }
