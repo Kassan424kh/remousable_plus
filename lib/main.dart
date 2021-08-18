@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -30,26 +31,98 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  bool _hoveredSaveButton = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: DraggebleAppBar(title: "reMousable"),
-      backgroundColor: Colors.white,
-      body: const Center(
-        child: Text("reMousable"),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    return Container(
+      decoration:
+          BoxDecoration(border: Border.all(width: 1, color: Colors.blueAccent)),
+      child: Scaffold(
+        appBar: DraggebleAppBar(title: "reMousable"),
+        backgroundColor: Colors.white,
+        body: Container(
+          padding: EdgeInsets.all(20),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+                Wrap(
+                  children: [
+                    Text(
+                      "IP-ADDRESS",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    CupertinoTextField(
+                      placeholder: "192.168.0.110",
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Wrap(
+                  children: [
+                    Text(
+                      "PASSWORD",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    CupertinoTextField(
+                      obscureText: true,
+                      placeholder: "•••••••••••",
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _hoveredSaveButton = true;
+            });
+          },
+          tooltip: 'Update',
+          elevation: 0,
+          focusElevation: 0,
+          hoverElevation: 0,
+          disabledElevation: 0,
+          highlightElevation: 0,
+          splashColor: Colors.transparent,
+          backgroundColor: Colors.blue.withAlpha(50),
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 350),
+            curve: Curves.easeInOutExpo,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(40),
+                  blurRadius: 10,
+                  spreadRadius: 15,
+                  offset: Offset(0, 15),
+                )
+              ],
+            ),
+            child: const Icon(
+              Icons.save,
+              color: Colors.blue,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -64,15 +137,27 @@ class DraggebleAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   DraggebleAppBar({Key? key, required this.title}) : super(key: key) {
     appBar = AppBar(
+      automaticallyImplyLeading: false,
+      titleSpacing: 0,
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
       bottom: PreferredSize(
-          child: Container(
-            color: Colors.blue,
-            height: 1.0,
+        child: Container(
+          color: Colors.blueAccent,
+          height: 1.0,
+        ),
+        preferredSize: Size.fromHeight(4.0),
+      ),
+      title: Row(
+        children: [
+          SizedBox(
+            width: 10,
           ),
-          preferredSize: Size.fromHeight(4.0)),
-      title: Text(title, style: TextStyle(color: Colors.black)),
+          Image.asset(
+            "assets/icon.png",
+          )
+        ],
+      ),
       actions: <Widget>[
         SizedBox(
           width: 5,
@@ -104,7 +189,13 @@ class DraggebleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        child: MouseRegion(child: appBar, onHover: onHover, onExit: offHover,), onPanStart: onPanStart, onPanUpdate: onPanUpdate);
+        child: MouseRegion(
+          child: appBar,
+          onHover: onHover,
+          onExit: offHover,
+        ),
+        onPanStart: onPanStart,
+        onPanUpdate: onPanUpdate);
   }
 
   @override
