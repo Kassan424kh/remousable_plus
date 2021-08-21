@@ -95,6 +95,42 @@ class _SplashscreenState extends State<Splashscreen>
                 ),
               ),
             ),
+            /* Material(
+              type: MaterialType.transparency,
+              child: Align(
+                alignment: Alignment.center,
+                heightFactor: _size.height,
+                widthFactor: _size.width,
+                child: Container(
+                  color: Colors.transparent,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("|"),
+                      Text("|"),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: Align(
+                alignment: Alignment.center,
+                heightFactor: _size.height,
+                widthFactor: _size.width,
+                child: Container(
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("-"),
+                      Text("-"),
+                    ],
+                  ),
+                ),
+              ),
+            ), */
           ],
         ),
       ),

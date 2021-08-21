@@ -4,16 +4,30 @@ import (
 	"github.com/go-flutter-desktop/go-flutter"
 	"github.com/go-flutter-desktop/go-flutter/plugin"
 	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/kbinani/screenshot"
 	"github.com/lxn/win"
 )
 
-var width = int(win.GetSystemMetrics(win.SM_CXSCREEN))
-var height = int(win.GetSystemMetrics(win.SM_CYSCREEN))
+var n = screenshot.NumActiveDisplays()
+
+var bounds = screenshot.GetDisplayBounds(0)
+
+var originalWidth = bounds.Dx()
+var originalHeight = bounds.Dy()
+
+var hDC = win.GetDC(0)
+var width = int(win.GetDeviceCaps(hDC, win.HORZRES))
+var height = int(win.GetDeviceCaps(hDC, win.VERTRES))
+
+var appWidth = int(float64(originalWidth) / 100.0 * 6.5)
+var appHeight = int(float64(originalWidth) / 100.0 * 9.8)
 
 var options = []flutter.Option{
-	flutter.WindowInitialDimensions(200, 300),
+	flutter.WindowInitialDimensions(appWidth, appHeight),
 	flutter.WindowMode(flutter.WindowModeBorderless),
-	flutter.WindowInitialLocation((width/2 + 259), (height/2 + 45)),
+
+	flutter.WindowInitialLocation(originalWidth/2-appWidth/2-int(float64((originalWidth-width)*100/originalWidth)/float64(100)*150), originalHeight/2-appHeight/2-int(float64((originalHeight-height)*100/originalHeight)/float64(100)*150)),
+
 	flutter.WindowAlwaysOnTop(true), // Always on top of other windows,
 	flutter.AddPlugin(&AppBarDraggable{}),
 }

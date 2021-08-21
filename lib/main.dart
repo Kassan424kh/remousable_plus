@@ -185,11 +185,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text(
-                      "In your reMarkable tablet got to:\nSettings > About > Copyrights and licenses > General information (scroll down)",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black54,
+                    Flexible(
+                      child: ListView(
+                        children: [
+                          Text(
+                            "In your reMarkable tablet got to:\nSettings > About > Copyrights and licenses > General information (scroll down)",
+                            style: TextStyle(
+                              fontSize: _size.width / 17.3,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
