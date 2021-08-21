@@ -24,6 +24,9 @@ github.com/go-gl/glfw/v3.3/glfw/glfw/deps/mingw
 github.com/go-gl/glfw/v3.3/glfw/glfw/deps/vs2008
 github.com/go-gl/glfw/v3.3/glfw/glfw/include/GLFW
 github.com/go-gl/glfw/v3.3/glfw/glfw/src
+# github.com/lxn/win v0.0.0-20210218163916-a377121e959e
+## explicit
+github.com/lxn/win
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors

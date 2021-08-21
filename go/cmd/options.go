@@ -4,12 +4,16 @@ import (
 	"github.com/go-flutter-desktop/go-flutter"
 	"github.com/go-flutter-desktop/go-flutter/plugin"
 	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/lxn/win"
 )
+
+var width = int(win.GetSystemMetrics(win.SM_CXSCREEN))
+var height = int(win.GetSystemMetrics(win.SM_CYSCREEN))
 
 var options = []flutter.Option{
 	flutter.WindowInitialDimensions(200, 300),
 	flutter.WindowMode(flutter.WindowModeBorderless),
-	flutter.WindowInitialLocation(200, 200),
+	flutter.WindowInitialLocation((width/2 + 259), (height/2 + 45)),
 	flutter.WindowAlwaysOnTop(true), // Always on top of other windows,
 	flutter.AddPlugin(&AppBarDraggable{}),
 }
