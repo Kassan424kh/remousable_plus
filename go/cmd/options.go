@@ -19,14 +19,19 @@ var hDC = win.GetDC(0)
 var width = int(win.GetDeviceCaps(hDC, win.HORZRES))
 var height = int(win.GetDeviceCaps(hDC, win.VERTRES))
 
-var appWidth = int(float64(originalWidth) / 100.0 * 6.5)
-var appHeight = int(float64(originalWidth) / 100.0 * 9.8)
+var systemDPIScalling = (float64(originalWidth) * 100 / float64(width))
+
+var appWidth = int(float64(originalWidth) / 100.0 * 5.2)
+var appHeight = int(float64(originalWidth) / 100.0 * 8)
+
+var posX = int((float64(originalWidth) / 2) - (float64(appWidth) / 2) - (systemDPIScalling - 100))
+var posY = int((float64(originalHeight) / 2) - (float64(appHeight) / 2) - (systemDPIScalling - 100))
 
 var options = []flutter.Option{
 	flutter.WindowInitialDimensions(appWidth, appHeight),
 	flutter.WindowMode(flutter.WindowModeBorderless),
 
-	flutter.WindowInitialLocation(originalWidth/2-appWidth/2-int(float64((originalWidth-width)*100/originalWidth)/float64(100)*150), originalHeight/2-appHeight/2-int(float64((originalHeight-height)*100/originalHeight)/float64(100)*150)),
+	flutter.WindowInitialLocation(posX, posY),
 
 	flutter.WindowAlwaysOnTop(true), // Always on top of other windows,
 	flutter.AddPlugin(&AppBarDraggable{}),
