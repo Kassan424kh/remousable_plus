@@ -33,6 +33,8 @@ var options = []flutter.Option{
 
 	flutter.WindowInitialLocation(posX, posY),
 
+	flutter.WindowTransparentBackground(true),
+
 	flutter.WindowAlwaysOnTop(true), // Always on top of other windows,
 	flutter.AddPlugin(&AppBarDraggable{}),
 }
